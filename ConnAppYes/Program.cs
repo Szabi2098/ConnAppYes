@@ -16,11 +16,16 @@ namespace ConnAppYes
             Console.SetWindowSize(125, 30);
             Console.SetBufferSize(125, 30);
 
-
             List<Conn> connections = new ConnController().GetConnList();
             new ConnView().ShowConnList(connections);
 
             Console.ReadLine();
         }
+
+        static void NewConn() 
+        {
+            
+        }
+
     }
 }

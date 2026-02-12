@@ -40,7 +40,7 @@ namespace ConnAppYes.Controllers
         {
             MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=connappyes;");
             con.Open();
-            string insertSql = "INSERT INTO connappyes VALUES (@Id,@Nev,@Cim,@Email,@Telefon)";
+            string insertSql = @"INSERT INTO connappyes VALUES (@Id,@Nev,@Cim,@Email,@Telefon)";
             MySqlCommand insertcmd = new MySqlCommand(insertSql, con);
             insertcmd.Parameters.AddWithValue("@Id", null);
             insertcmd.Parameters.AddWithValue("@Nev", conn.Nev);
@@ -58,7 +58,7 @@ namespace ConnAppYes.Controllers
         {
             MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=connappyes;");
             con.Open();
-            string insertSql = "UPDATE connappyes SET `Nev`= @Nev,`Cim`= @Cim,`Email`= @Email,`Telefon`= @Telefon WHERE Id = @Id;";
+            string insertSql = @"UPDATE connappyes SET `Nev`= @Nev,`Cim`= @Cim,`Email`= @Email,`Telefon`= @Telefon WHERE Id = @Id;";
             MySqlCommand insertcmd = new MySqlCommand(insertSql, con);
             insertcmd.Parameters.AddWithValue("@Id", id);
             insertcmd.Parameters.AddWithValue("@Nev", nev);
@@ -77,7 +77,7 @@ namespace ConnAppYes.Controllers
         {
             MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=connappyes;");
             con.Open();
-            string insertSql = "DELETE FROM `connappyes` WHERE Id = @Id";
+            string insertSql = @"DELETE FROM `connappyes` WHERE Id = @Id";
             MySqlCommand insertcmd = new MySqlCommand(insertSql, con);
             insertcmd.Parameters.AddWithValue("@Id", id);
 

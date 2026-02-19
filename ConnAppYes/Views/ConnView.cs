@@ -1,4 +1,5 @@
 ﻿using ConnAppYes.Models;
+using Org.BouncyCastle.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,17 @@ namespace ConnAppYes.Views
             Console.WriteLine("└──────┴─────────────────────────┴──────────────────────────────────────────┴──────────────────────┴─────────────────────┘");
 
 
+        }
+
+        public void ShowConn(Conn conn) 
+        {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+            Console.WriteLine("┌──────┬─────────────────────────┬──────────────────────────────────────────┬──────────────────────┬─────────────────────┐");
+            Console.WriteLine("│  Id  │           Név           │                    Cím                   │        E-mail        │       Telefon       │");
+            Console.WriteLine("├──────┼─────────────────────────┼──────────────────────────────────────────┼──────────────────────┼─────────────────────┤");
+            Console.WriteLine($"│{conn.Id,-6}│{conn.Nev,-25}│{conn.Cim,-42}│{conn.Email,-22}│{conn.Telefon,-21}│");
+            Console.WriteLine("└──────┴─────────────────────────┴──────────────────────────────────────────┴──────────────────────┴─────────────────────┘");
         }
     }
 }

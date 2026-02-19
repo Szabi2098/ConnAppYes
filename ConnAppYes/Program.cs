@@ -22,11 +22,43 @@ namespace ConnAppYes
             List<Conn> connections = new ConnController().GetConnList();
             new ConnView().ShowConnList(connections);
 
+            Console.WriteLine("\n\n1: Új Kapcsolat" +
+                "\n2: Kapcsolat Módosítása" +
+                "\n3: Kapcsolat Törlése" +
+                "\n99: Kilépés");
+            string ans = Console.ReadLine();
+            switch (ans)
+            {
+                case "1":
+                    NewConn();
+                    break;
+                case "2":
+                    UpdConn();
+                    break;
+                case "3":
+                    DelConn();
+                    break;
+                case "99":
+                    Exit();
+                    break;
+                default:
+                    Console.WriteLine("Nincs ilyen opció!");
+                    Console.ReadLine();
+                    Main();
+                    break;
+            }
+
+
+
             Console.ReadLine();
         }
 
-        static void NewConn() 
+        static void NewConn()
         {
+            Console.Clear();
+            List<Conn> connections = new ConnController().GetConnList();
+            new ConnView().ShowConnList(connections);
+
             //while (true)
             //{
             //    if (Console.KeyAvailable) 
@@ -54,27 +86,31 @@ namespace ConnAppYes
             Conn newConn = new Conn(
                 id: 1,
                 nev: nev,
-                cim: cim, 
-                email: email, 
+                cim: cim,
+                email: email,
                 telefon: telefon
             );
-            
-            if(new ConnController().NewConn(newConn)) 
-            { 
-                Console.WriteLine("Sikeres mentés!"); 
-            } 
-            else 
-            { 
-                Console.WriteLine("Sikertelen mentés!"); 
+
+            if (new ConnController().NewConn(newConn))
+            {
+                Console.WriteLine("Sikeres mentés!");
+            }
+            else
+            {
+                Console.WriteLine("Sikertelen mentés!");
             }
             Console.ReadLine();
             Main();
         }
 
-        static void UpdConn() 
+        static void UpdConn()
         {
+            Console.Clear();
+            List<Conn> connections = new ConnController().GetConnList();
+            new ConnView().ShowConnList(connections);
+
             #region Jelenlegi adatok
-            MySqlConnection conn = new MySqlConnection("server=localhost;user=root;password=;database=kockasfuzet;");
+            MySqlConnection conn = new MySqlConnection("server=localhost;user=root;password=;database=connappyes;");
 
             conn.Open();
 
@@ -132,29 +168,72 @@ namespace ConnAppYes
 
 
             if (new ConnController().UpdConn(id, nev, cim, email, telefon))
-            { 
-                Console.WriteLine("Sikeres módosítás!"); 
-            } 
-            else 
-            { 
-                Console.WriteLine("Sikertelen módosítás!"); 
-            } 
+            {
+                Console.WriteLine("Sikeres módosítás!");
+            }
+            else
+            {
+                Console.WriteLine("Sikertelen módosítás!");
+            }
             Console.ReadLine();
             Main();
         }
 
         static void DelConn()
         {
+            Console.Clear();
+            List<Conn> connections = new ConnController().GetConnList();
+            new ConnView().ShowConnList(connections);
+
+            // Törlendő Kapcsolat ID-jának bekérése
+            Console.WriteLine("\nAdd meg a törlendő Kapcsolat ID-ját:");
+            int id = int.Parse(Console.ReadLine());
+
+
+            Console.Clear();
+            foreach (var conn in connections)
+            {
+                if (conn.Id == id)
+                {
+                    new ConnView().ShowConn(conn);
+                    break;
+                }
+            }
+
+            Console.WriteLine("\nBiztos hogy törölni szeretné a kiválasztott kapcsolatot? (I/n)");
+            string valasz = Console.ReadLine();
+            if (valasz.ToLower() == "n")
+            {
+                Console.WriteLine("Törlés megszakítva!");
+                Console.ReadLine();
+                Main();
+            }
+
+
             if (new ConnController().DelConn(id))
-            { 
-                Console.WriteLine("Sikeres törlés!"); 
-            } 
-            else 
-            { 
-                Console.WriteLine("Sikertelen törlés!"); 
-            } 
-            Console.ReadLine(); 
+            {
+                Console.WriteLine("Sikeres törlés!");
+            }
+            else
+            {
+                Console.WriteLine("Sikertelen törlés!");
+            }
+            Console.ReadLine();
             Main();
+        }
+
+        static void Exit()
+        {
+            Console.WriteLine("Biztos ki szeretne lépni? (I/n)");
+            string valasz = Console.ReadLine();
+            if (valasz.ToLower() == "n")
+            {
+                Main();
+            }
+            else 
+            {
+                Environment.Exit(0);
+            }
         }
 
     }
